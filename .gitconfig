@@ -1,0 +1,43 @@
+# This is Git's per-user configuration file.
+[push]
+    default = simple
+    followTags = true
+[user]
+    name = tspng
+    email = tspng@socket.ch
+[core]
+    excludesfile = ~/.gitignore_global
+[http]
+    # allow large deltas to be pushed
+    postBuffer = 1048576000
+[alias]
+    # common operations
+    ci = commit
+    co = checkout
+    st = status
+    df = diff
+    br = branch
+    ri = rebase --interactive --autosquash
+    fixup = "!git lg -n 50 --no-merges | fzf | cut -c 3-10 | xargs -o git commit --fixup"
+
+    # create nice git log output
+    lg = log --graph --decorate --abbrev-commit --date-order --pretty=format:'%C(green)%h%C(reset) : %s%C(red)%d%C(reset) (%C(blue)%an%C(reset), %C(blue)%ar%C(reset))'
+    lgall = log --graph --decorate --abbrev-commit --date-order --all --pretty=format:'%C(green)%h%C(reset) : %s%C(red)%d%C(reset) (%C(blue)%an%C(reset), %C(blue)%ar%C(reset))'
+    l = lgall -20
+
+    sup = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
+    subl = !git status --porcelain | sed 's/ M //' | sed 's/?? //' | xargs subl
+[pager]
+    # don't use pager when listing stash
+    stash = false
+[pull]
+    rebase = false
+[filter "lfs"]
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+    clean = git-lfs clean -- %f
+[init]
+    defaultBranch = main
+[rebase]
+    autosquash = true
