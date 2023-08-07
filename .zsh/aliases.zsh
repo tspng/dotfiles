@@ -13,3 +13,6 @@ alias rm_pyc='find . -name \*\.pyc -exec rm {} \;'
 # Docker
 alias dshell_latest='docker exec -i -t $(docker ps -n1 --format "{{.ID}}") bash -l'
 alias denv='eval $(docker-machine env default)'
+
+# My dotfiles git alias for using the bare repository
+alias dotfiles='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
