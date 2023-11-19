@@ -39,9 +39,9 @@ export LESSCHARSET='utf-8'
 export CLOUDSDK_ACTIVE_CONFIG_NAME=default
 
 # Java
-JAVA_HOME_PATH=/usr/libexec/java_home
-if [[ -x $JAVA_HOME_PATH ]]; then
-    export JAVA_HOME=`$JAVA_HOME_PATH`
+JAVA_HOME=$(/usr/libexec/java_home 2> /dev/null)
+if [[ $? -eq 0 ]]; then
+    export JAVA_HOME
 fi
 
 # pipx
