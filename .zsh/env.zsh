@@ -62,7 +62,7 @@ if [[ -x $TK_BIN_PATH ]]; then
 fi
 
 # TEX Live
-TEXLIVE_DIR=${HOMEBREW_PREFIX}/texlive/2021
+TEXLIVE_DIR=${HOMEBREW_PREFIX}/texlive/2023
 if [[ -d $TEXLIVE_DIR ]]; then
     append_path ${TEXLIVE_DIR}/bin/universal-darwin
 fi
@@ -76,7 +76,10 @@ fi
 
 # Fzf Ctrl-R replacement
 if (( $+commands[fzf] )); then
-    [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+    FZF_PATH=$(brew --prefix)/opt/fzf/bin
+    if ! path_is_in_path "$FZF_PATH"; then
+        append_path $FZF_PATH
+    fi
 fi
 
 # Direnv, load and unload environment variables based on current directory

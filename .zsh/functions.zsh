@@ -5,3 +5,11 @@ function append_path () {
 function prepend_path () {
     if [[ -d $1 ]] && path=($1 $path)
 }
+
+function path_is_in_path () {
+    if [[ -d $1 ]] && [[ "$path" == *" $1 "* ]]; then
+        return 0  # True
+    else
+        return 1  # False
+    fi
+}

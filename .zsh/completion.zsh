@@ -5,6 +5,23 @@ if (( $+commands[brew] )); then
 fi
 fpath=("${0:h}/completions" $fpath)
 
+# Google Cloud SDK
+if (( $+commands[gcloud] )); then
+    local cask_path=$(brew --caskroom)
+    source "${cask_path}/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+    source "${cask_path}/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+fi
+
+# pipx
+if (( $+commands[pipx] )); then
+    eval "$(register-python-argcomplete pipx)"
+fi
+
+# Fzf Ctrl-R replacement
+if (( $+commands[fzf] )); then
+    source "$(brew --prefix)/opt/fzf/shell/completion.zsh"
+fi
+
 autoload -Uz compinit
 () {
     # Run compinit in anonymous function so we can use extendedglob locally
@@ -23,18 +40,6 @@ autoload -Uz compinit
         compinit -C
     fi
 }
-
-# Google Cloud SDK
-if (( $+commands[gcloud] )); then
-    local cask_path=$(brew --caskroom)
-    source "${cask_path}/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
-    source "${cask_path}/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
-fi
-
-# pipx
-if (( $+commands[pipx] )); then
-    eval "$(register-python-argcomplete pipx)"
-fi
 
 # Enable ability to highlight matches, scroll through long lists and
 # a different style of completion menu

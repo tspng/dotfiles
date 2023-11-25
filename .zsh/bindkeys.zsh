@@ -14,3 +14,8 @@ bindkey "^B"      backward-char                        # ctrl-b
 bindkey "[C"      forward-word
 bindkey "[D"      backward-word
 bindkey -e   # Default to standard emacs bindings, regardless of editor string
+
+# Fzf Ctrl-R replacement
+if (( $+commands[fzf] )); then
+    source "/usr/local/opt/fzf/shell/key-bindings.zsh"
+fi
