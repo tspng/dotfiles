@@ -23,9 +23,15 @@ export LC_CTYPE='en_US.UTF-8'
 # CTAGS sorting in VIM/Emacs is better behaved with this in place
 export LC_COLLATE=C
 
-# Enable color in grep
-export GREP_OPTIONS='--color=auto'
-export GREP_COLOR='3;33'
+# grep / ripgrep
+if (( $+commands[rg] )); then
+    export GREP='rg'
+else
+    # Enable color in grep
+    export GREP='grep'
+    export GREP_OPTIONS='--color=auto'
+    export GREP_COLOR='3;33'
+fi
 
 if [[ "$OSTYPE" == darwin* ]]; then
     export BROWSER='open'
@@ -80,6 +86,14 @@ if (( $+commands[fzf] )); then
     if ! path_is_in_path "$FZF_PATH"; then
         append_path $FZF_PATH
     fi
+fi
+
+# Google Cloud SDK
+GOOGLE_CLOUD_SDK_PATH="$(brew --prefix)/share/google-cloud-sdk"
+if [[ -d $GOOGLE_CLOUD_SDK_PATH ]]; then
+    echo "Google Cloud SDK found at $GOOGLE_CLOUD_SDK_PATH"
+    source "${GOOGLE_CLOUD_SDK_PATH}/path.zsh.inc"
+    source "${GOOGLE_CLOUD_SDK_PATH}/completion.zsh.inc"
 fi
 
 # Direnv, load and unload environment variables based on current directory
