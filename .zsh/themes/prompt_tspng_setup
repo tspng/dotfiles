@@ -1,0 +1,67 @@
+# Resources:
+# - https://scriptingosx.com/2019/07/moving-to-zsh-06-customizing-the-zsh-prompt/
+# - https://github.com/ericfreese/zsh-efgit-prompt/blob/master/prompt_efgit_setup
+# - https://github.com/sindresorhus/pure/blob/main/pure.zsh
+# - https://stackoverflow.com/a/66855163/4993
+# - https://github.com/zsh-users/zsh/blob/master/Misc/vcs_info-examples
+
+
+# prompt_tspng_help () {
+#   cat <<'EOF'
+# This prompt is color-scheme-able.  You can invoke it thus:
+
+#   prompt tspng [<color1>]
+
+# where the color is for the right-hand prompt.
+# EOF
+# }
+
+prompt_tspng_precmd () {
+    vcs_info
+    pyenv_info
+    set_tspng_prompt
+}
+
+pyenv_info () {
+    if (( ${+PYENV_VERSION} )); then
+        pyenv_info="%F{blue}$PYENV_VERSION%f "
+    else
+        pyenv_local=$(pyenv local 2> /dev/null)
+        if [ $? -eq 0 ]; then
+            pyenv_info="%F{blue}${pyenv_local}%f "
+        else
+            pyenv_info=""
+        fi
+    fi
+}
+
+set_tspng_prompt () {
+    local return_status='%(?..%F{red}➜ %?%f )'
+    local prompt_symbol='%(!.%F{red}#%f.%B>%b) '
+    local prompt_host=''
+    if [[ -n "$SSH_CONNECTION" ]]; then
+        local prompt_host='%B@%b%m '
+    fi
+    local max_path_chars=35
+
+    PS1="${return_status}${pyenv_info}${prompt_host}${vcs_info_msg_0_}${prompt_symbol}"
+    RPS1="[%{$fg_bold[green]%}%${max_path_chars}<...<%~%<<%{$reset_color%}]"
+    #RPS1="%F{${1:-green}}%~%f"
+}
+
+prompt_tspng_setup () {
+    zstyle ':vcs_info:*' enable git svn hg
+    zstyle ':vcs_info:*' check-for-changes true
+    zstyle ':vcs_info:*' unstagedstr '!'
+    zstyle ':vcs_info:*' stagedstr '+'
+    zstyle ':vcs_info:*' formats "(%{$fg[yellow]%}%b%{$reset_color%}%m%u%c) "
+    zstyle ':vcs_info:*' actionformats "(%{$fg[yellow]%}%b%{$reset_color%}) [%a] "
+    zstyle ':vcs_info:*' nvcsformats "" ""
+
+    autoload -Uz vcs_info
+    autoload -Uz add-zsh-hook
+    add-zsh-hook precmd prompt_tspng_precmd  
+    prompt_opts=( cr percent sp )
+}
+
+prompt_tspng_setup "$@"
