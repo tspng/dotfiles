@@ -67,8 +67,8 @@ bindkey "^D"      delete-char                         # ctrl-d
 
 # Fzf Ctrl-R replacement
 if (( $+commands[fzf] )); then
-    source "/opt/homebrew/opt/fzf/shell/completion.zsh"
-    source "/opt/homebrew/opt/fzf/shell/key-bindings.zsh"
+    source "${HOMEBREW_PREFIX}/opt/fzf/shell/completion.zsh"
+    source "${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh"
 fi
 
 # pyenv
