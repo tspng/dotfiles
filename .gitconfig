@@ -17,7 +17,7 @@
     st = status
     df = diff
     br = branch
-    ri = rebase --interactive --autosquash
+    ri = rebase --interactive --autosquash --autostash
     fixup = "!git lg -n 50 --no-merges | fzf | cut -c 3-10 | xargs -o git commit --fixup"
 
     # create nice git log output
