@@ -55,11 +55,14 @@ setopt share_history          # share command history data
 ##############
 ## Key Bindings
 ##############
-bindkey "^A"      beginning-of-line                   # ctrl-a  
-bindkey "^E"      end-of-line                         # ctrl-e
-bindkey "[B"      history-search-forward              # down arrow
-bindkey "[A"      history-search-backward             # up arrow
-bindkey "^D"      delete-char                         # ctrl-d
+bindkey "^a"      beginning-of-line           # ctrl-a  
+bindkey "^e"      end-of-line                 # ctrl-e
+#bindkey "[b"      history-search-forward      # down arrow
+#bindkey "[a"      history-search-backward     # up arrow
+bindkey "^d"      delete-char                 # ctrl-d
+bindkey '^[b'     backward-word               # alt/option-left arrow
+bindkey '^[f'     forward-word                # alt/option-right arrow
+#bindkey -e        # Default to standard emacs bindings
 
 ##############
 ## 3rd Party Apps
