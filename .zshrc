@@ -18,6 +18,7 @@ prompt tspng
 ##############
 ## Completion
 ##############
+fpath=($HOMEBREW_PREFIX/share/zsh/site-functions $fpath)
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
 zstyle ':completion:*' rehash true
