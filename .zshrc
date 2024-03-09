@@ -24,7 +24,6 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' rehash true
 zstyle ':completion:*' special-dirs true
 
-setopt correctall  # enable auto-correction of commands typed
 # setopt extendedglob  # enable extended globbing
 
 ##############
