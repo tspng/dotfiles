@@ -70,8 +70,7 @@ bindkey '^[f'     forward-word                # alt/option-right arrow
 
 # Fzf Ctrl-R replacement
 if (( $+commands[fzf] )); then
-    source "${HOMEBREW_PREFIX}/opt/fzf/shell/completion.zsh"
-    source "${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh"
+    eval "$(fzf --zsh)"
 fi
 
 # pyenv
