@@ -10,7 +10,7 @@
 # - https://gist.github.com/Linerre/f11ad4a6a934dcf01ee8415c9457e7b2
 
 typeset -U path PATH
-path=(~/bin ~/.local/bin $path)
+path=(~/bin ~/.local/bin ~/.cargo/bin $path)
 
 # Homebrew for Apple Silicon
 if [[ -x /opt/homebrew/bin/brew ]]; then
