@@ -16,21 +16,26 @@
 # EOF
 # }
 
+# disables prompt mangling in virtual_env/bin/activate
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+
 prompt_tspng_precmd () {
     vcs_info
-    pyenv_info
+    venv_info
     set_tspng_prompt
 }
 
-pyenv_info () {
-    if (( ${+PYENV_VERSION} )); then
-        pyenv_info="%F{blue}$PYENV_VERSION%f "
+venv_info () {
+    venv_info=""
+    if (( ${+VIRTUAL_ENV} )); then
+        venv_info="%F{blue}${VIRTUAL_ENV:t:gs/%/%%}%f "
+    elif (( ${+PYENV_VERSION} )); then
+        venv_info="%F{blue}$PYENV_VERSION%f "
     else
         pyenv_local=$(pyenv local 2> /dev/null)
         if [ $? -eq 0 ]; then
-            pyenv_info="%F{blue}${pyenv_local}%f "
-        else
-            pyenv_info=""
+            venv_info="%F{blue}${pyenv_local}%f "
         fi
     fi
 }
@@ -44,7 +49,7 @@ set_tspng_prompt () {
     fi
     local max_path_chars=35
 
-    PS1="${return_status}${pyenv_info}${prompt_host}${vcs_info_msg_0_}${prompt_symbol}"
+    PS1="${return_status}${venv_info}${prompt_host}${vcs_info_msg_0_}${prompt_symbol}"
     RPS1="[%{$fg_bold[green]%}%${max_path_chars}<...<%~%<<%{$reset_color%}]"
     #RPS1="%F{${1:-green}}%~%f"
 }
