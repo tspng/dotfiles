@@ -36,6 +36,9 @@ else
     export GREP_COLOR='3;33'
 fi
 
+# Python
+export PIP_REQUIRE_VIRTUALENV=true
+
 # Pager
 if (( $+commands[bat] )); then
     export PAGER='bat'
