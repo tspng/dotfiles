@@ -99,6 +99,12 @@ if has("gui_running")
     endif 
 endif
 
+" 3RD PARTY 
+" =========
+
+" fzf
+set rtp+=/opt/homebrew/opt/fzf
+
 
 " Backup
 " ======================
