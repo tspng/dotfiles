@@ -1,25 +1,19 @@
-# This file is sourced for every shell instance. 
+# This file is sourced for every shell instance.
 #
-# Configures search paths and key environment variables
-# without output commands or tty assumptions. 
-# 
-# zsh initialization order: zshenv -> zprofile -> zshrc -> zlogin.
+# Configures key environment variables without
+# output commands or tty assumptions.
+# NOTE: do not configure PATH here, use ~/.zprofile or ~/.zshrc instead.
+#
+# zsh initialization order: /etc/zshenv -> ~/.zshenv ->
+#                           /etc/zprofile -> ~/.zprofile ->
+#                           /etc/zshrc -> ~/.zshrc ->
+#                           /etc/zlogin -> ~/.zlogin
 #
 # Resources:
+# - https://zsh.sourceforge.io/Doc/Release/Files.html
 # - https://github.com/novas0x2a/config-files/blob/master/.zshenv
 # - https://gist.github.com/Linerre/f11ad4a6a934dcf01ee8415c9457e7b2
 
-typeset -U path PATH
-path=(~/bin ~/.local/bin ~/.cargo/bin $path)
-
-# Homebrew for Apple Silicon
-if [[ -x /opt/homebrew/bin/brew ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
-# Homebrew for Apple x86_64
-if [[ -x /usr/local/bin/brew ]]; then
-    eval "$(/usr/local/bin/brew shellenv)"
-fi
 export HOMEBREW_NO_ANALYTICS=1
 
 # Language settings

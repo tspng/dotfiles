@@ -6,12 +6,31 @@
 #
 # Resources:
 # - https://wiki.archlinux.org/title/zsh
+# - https://0xmachos.com/2021-05-13-zsh-path-macos/
+# - https://gist.github.com/Linerre/f11ad4a6a934dcf01ee8415c9457e7b2
+
+##############
+## Path
+##############
+# Due to `path_helper` being called in `/etc/zshenv`,
+# PATH needs to be set up here.
+typeset -U path PATH
+path=(~/bin ~/.local/bin ~/.cargo/bin $path)
+
+# Homebrew for Apple Silicon
+if [[ -x /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+# Homebrew for Apple x86_64
+if [[ -x /usr/local/bin/brew ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+fi
 
 ##############
 ## Theme
 ##############
 fpath=($HOME/.zsh/themes $fpath)
-autoload -U promptinit && promptinit
+autoload -Uz promptinit && promptinit
 autoload colors && colors  # Load colors (if you want to use colors in prompt)
 prompt tspng
 
@@ -55,7 +74,7 @@ setopt share_history          # share command history data
 ##############
 ## Key Bindings
 ##############
-bindkey "^a"      beginning-of-line           # ctrl-a  
+bindkey "^a"      beginning-of-line           # ctrl-a
 bindkey "^e"      end-of-line                 # ctrl-e
 #bindkey "[b"      history-search-forward      # down arrow
 #bindkey "[a"      history-search-backward     # up arrow
@@ -88,6 +107,9 @@ fi
 if (( $+commands[direnv] )); then
     eval "$(direnv hook zsh)"
 fi
+
+# Orbstack
+source ~/.orbstack/shell/init.zsh 2> /dev/null || :
 
 if [[ -r $HOME/.zshrc.local ]]; then
     source $HOME/.zshrc.local
