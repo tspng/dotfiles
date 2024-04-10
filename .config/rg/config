@@ -1,0 +1,8 @@
+# Search in hidden files, but not in the following ones
+--hidden
+--glob=!.git/*
+--glob=!.venv/*
+
+# Ignore case if pattern is all lower case
+--smart-case
+

@@ -23,6 +23,7 @@ export LC_CTYPE='en_US.UTF-8'
 # grep / ripgrep
 if (( $+commands[rg] )); then
     export GREP='rg'
+    export RIPGREP_CONFIG_PATH="$HOME/.config/rg/config"
 else
     # Enable color in grep
     export GREP='grep'
