@@ -2,14 +2,18 @@
 [push]
     default = simple
     followTags = true
+
 [user]
     name = tspng
     email = tspng@socket.ch
+
 [core]
     excludesfile = ~/.gitignore_global
+
 [http]
     # allow large deltas to be pushed
     postBuffer = 1048576000
+
 [alias]
     # common operations
     ci = commit
@@ -18,34 +22,47 @@
     df = diff
     br = branch
     ri = rebase --interactive --autosquash --autostash
-    
+
     fixup = "!git lg -n 50 --no-merges | fzf | cut -c 3-10 | xargs -o git commit --fixup"
     save = !git add -A && git commit -m 'SAVEPOINT'
     wip = !git add -u && git commit -m "WIP"
     wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
 
     # create nice git log output
-    lg = log --graph --decorate --abbrev-commit --date-order --pretty=format:'%C(green)%h%C(reset) : %s%C(red)%d%C(reset) (%C(blue)%an%C(reset), %C(blue)%ar%C(reset))'
-    lgall = log --graph --decorate --abbrev-commit --date-order --all --pretty=format:'%C(green)%h%C(reset) : %s%C(red)%d%C(reset) (%C(blue)%an%C(reset), %C(blue)%ar%C(reset))'
-    l = lgall -20
+    lg = log --graph --date-order --pretty=l1
+    lgall = lg --all
+    l = lg -20
+    l2 = l --pretty=l2
 
     sup = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
     subl = !git status --porcelain | sed 's/ M //' | sed 's/?? //' | xargs subl
+
+[pretty]
+    # single line default format
+    l1 = tformat:%C(green)%h%C(reset) %s%C(auto)%d%C(reset) (%C(dim blue)%an%C(reset), %C(blue)%ar%C(reset))
+    # double line format
+    l2 = format:%C(green)%h%C(reset)%C(white) - %C(reset)%C(italic blue)%ad%C(reset) %C(italic cyan)(%ar)%C(reset)%C(auto)%d%C(reset)%n %C(white)⤷%C(reset) %s %C(241)- %aN <%aE>%C(reset)%n%w(0,7,7)%+(trailers:only,unfold)
+
 [pager]
     # don't use pager when listing stash
     stash = false
+
 [pull]
     # rebase local changes on top of remote changes
     rebase = true
+
 [fetch]
     # prune remote branches that no longer exist
     prune = true
+
 [filter "lfs"]
     smudge = git-lfs smudge -- %f
     process = git-lfs filter-process
     required = true
     clean = git-lfs clean -- %f
+
 [init]
     defaultBranch = main
+
 [rebase]
     autosquash = true
