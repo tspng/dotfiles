@@ -95,7 +95,7 @@ if has("gui_running")
     elseif has("x11")
         set guifont=-adobe-courier-medium-r-normal-*-12-*-*-*-*-*-*-*
     else
-        set guifont=-monospace-:h14
+        set guifont=Input\ Mono\ Narrow:h12
     endif 
 endif
 
