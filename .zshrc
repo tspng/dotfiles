@@ -84,7 +84,27 @@ bindkey '^[f'     forward-word                # alt/option-right arrow
 #bindkey -e        # Default to standard emacs bindings
 
 ##############
-## 3rd Party Apps
+## Misc Env
+##############
+
+export LANG='en_US.UTF-8'
+export LC_CTYPE='en_US.UTF-8'
+
+export CLICOLOR=1
+export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=36;01:cd=33;01:su=31;40;07:sg=36;40;07:tw=32;40;07:ow=33;40;07:'
+
+export EDITOR='vim'
+export VISUAL='vim'
+
+case $(uname -s) in
+    Darwin) export BROWSER='open';;
+    *) export BROWSER='firefox';;
+esac
+
+export HOMEBREW_NO_ANALYTICS=1
+
+##############
+## 3rd-party Apps
 ##############
 
 # Fzf Ctrl-R replacement
@@ -92,11 +112,12 @@ if (( $+commands[fzf] )); then
     eval "$(fzf --zsh)"
 fi
 
-# pyenv
+# Python & pyenv
 if (( $+commands[pyenv] )); then
     export PYENV_ROOT="$HOME/.pyenv"
     eval "$(pyenv init -)"
 fi
+export PIP_REQUIRE_VIRTUALENV=true
 
 # Google Cloud SDK
 if (( $+commands[gcloud] )); then
@@ -108,9 +129,29 @@ if (( $+commands[direnv] )); then
     eval "$(direnv hook zsh)"
 fi
 
+# grep / ripgrep
+if (( $+commands[rg] )); then
+    export GREP='rg'
+    export RIPGREP_CONFIG_PATH="$HOME/.config/rg/config"
+else
+    # Enable color in grep
+    export GREP='grep'
+    export GREP_OPTIONS='--color=auto'
+    export GREP_COLOR='3;33'
+fi
+
+# Pager (less / bat)
+if (( $+commands[bat] )); then
+    export PAGER='bat'
+else
+    export PAGER='less'
+    export LESSCHARSET='utf-8'
+fi
+
 # Orbstack
 source ~/.orbstack/shell/init.zsh 2> /dev/null || :
 
 if [[ -r $HOME/.zshrc.local ]]; then
     source $HOME/.zshrc.local
 fi
+
