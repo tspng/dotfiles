@@ -7,7 +7,7 @@
 --theme="Visual Studio Dark+"
 
 # Show Git modifications and file header (but no grid)
---style="changes,header"
+--style="plain"
 
 # terminal emulators (like tmux, by default):
 #--italic-text=always
