@@ -1,10 +1,13 @@
 import = [
-    ".config/alacritty/themes/tspng_dark.toml"
+    "~/.config/alacritty/themes/tspng_dark.toml"
 ]
 
 [window]
 dimensions = { columns = 124, lines = 43 }
-decorations = "Full"
+decorations = "transparent"
+padding = { x = 5, y = 25 }
+dynamic_padding = true
+#opacity = 0.9
 
 [font]
 size = 14.0
