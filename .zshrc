@@ -111,8 +111,12 @@ if (( $+commands[fzf] )); then
     eval "$(fzf --zsh)"
 fi
 
+# Rye
+if [[ -d "$HOME/.rye/shims" ]]; then
+    export PATH="$HOME/.rye/shims:$PATH"
+ 
 # Python & pyenv
-if (( $+commands[pyenv] )); then
+elif (( $+commands[pyenv] )); then
     export PYENV_ROOT="$HOME/.pyenv"
     eval "$(pyenv init -)"
 fi
