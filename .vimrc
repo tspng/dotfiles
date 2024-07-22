@@ -84,6 +84,8 @@ autocmd BufRead *.py inoremap # X<c-h>#
 
 syntax on
 colorscheme desert
+" Remove background color for the Normal highlight group in both GUI and terminal
+hi Normal guibg=NONE ctermbg=NONE
 
 " default gvim color scheme
 if has("gui_running")
