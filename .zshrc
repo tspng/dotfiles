@@ -78,8 +78,12 @@ bindkey "^e"      end-of-line                 # ctrl-e
 #bindkey "[b"      history-search-forward      # down arrow
 #bindkey "[a"      history-search-backward     # up arrow
 bindkey "^d"      delete-char                 # ctrl-d
+# iterm2
 bindkey '^[b'     backward-word               # alt/option-left arrow
 bindkey '^[f'     forward-word                # alt/option-right arrow
+# alacritty
+bindkey '^[[1;3D' backward-word               # alt/option-left arrow
+bindkey '^[[1;3C' forward-word                # alt/option-right arrow
 #bindkey -e        # Default to standard emacs bindings
 
 ##############
