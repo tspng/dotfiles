@@ -7,11 +7,14 @@ dimensions = { columns = 124, lines = 43 }
 decorations = "transparent"
 padding = { x = 5, y = 25 }
 dynamic_padding = true
-#opacity = 0.9
+opacity = 0.95
 
 [font]
 size = 14.0
 normal = { family = "Maple Mono" }
+
+[keyboard]
+bindings = []
 
 [selection]
 save_to_clipboard = true
