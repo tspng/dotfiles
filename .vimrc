@@ -101,6 +101,22 @@ if has("gui_running")
     endif 
 endif
 
+" KEY MAPPINGS
+" ============
+set macmeta
+
+" move current line up/down with Opt-Up / Opt-Down
+nnoremap <M-Down> :m .+1<CR>==
+nnoremap <M-Up> :m .-2<CR>==
+inoremap <M-Down> <Esc>:m .+1<CR>==gi
+inoremap <M-Up> <Esc>:m .-2<CR>==gi
+
+" move current line up/down with Ctrl-k / Ctrl-j 
+nnoremap <C-j> :m .+1<CR>==
+nnoremap <C-k> :m .-2<CR>==
+inoremap <C-j> <Esc>:m .+1<CR>==gi
+inoremap <C-k> <Esc>:m .-2<CR>==gi
+
 " 3RD PARTY 
 " =========
 
