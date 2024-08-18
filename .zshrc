@@ -12,7 +12,7 @@
 ##############
 ## Path
 ##############
-# Due to `path_helper` being called in `/etc/zshenv`,
+# Due to `path_helper` being called in `/etc/zprofile`,
 # PATH needs to be set up here.
 typeset -U path PATH
 path=(~/bin ~/.local/bin ~/.cargo/bin $path)
@@ -45,15 +45,6 @@ zstyle ':completion:*' special-dirs true
 
 # setopt extendedglob  # enable extended globbing
 
-##############
-## Aliases
-##############
-alias psgrep="ps wwaux | $GREP"
-alias hgrep="history 1 | $GREP"
-alias bs="brew services"
-alias rm_pyc="find . -name \*\.pyc -delete"
-# My dotfiles git alias for using the bare repository
-alias dotfiles="git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 
 ##############
 ## History
@@ -86,25 +77,6 @@ bindkey '^[[1;3D' backward-word               # alt/option-left arrow
 bindkey '^[[1;3C' forward-word                # alt/option-right arrow
 #bindkey -e        # Default to standard emacs bindings
 
-##############
-## Misc Env
-##############
-
-export LANG='en_US.UTF-8'
-export LC_CTYPE='en_US.UTF-8'
-
-export CLICOLOR=1
-export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=36;01:cd=33;01:su=31;40;07:sg=36;40;07:tw=32;40;07:ow=33;40;07:'
-
-export EDITOR='vim'
-export VISUAL='vim'
-
-case $(uname -s) in
-    Darwin) export BROWSER='open';;
-    *) export BROWSER='firefox';;
-esac
-
-export HOMEBREW_NO_ANALYTICS=1
 
 ##############
 ## 3rd-party Apps
@@ -115,16 +87,14 @@ if (( $+commands[fzf] )); then
     eval "$(fzf --zsh)"
 fi
 
-# Rye
-if [[ -d "$HOME/.rye/shims" ]]; then
+# Python tooling
+if [[ "$PREFER_PYTHON_TOOL" == "rye" ]]; then
     export PATH="$HOME/.rye/shims:$PATH"
- 
-# Python & pyenv
-elif (( $+commands[pyenv] )); then
+elif [[ "$PREFER_PYTHON_TOOL" == "pyenv" ]]; then
     export PYENV_ROOT="$HOME/.pyenv"
     eval "$(pyenv init -)"
 fi
-export PIP_REQUIRE_VIRTUALENV=true
+
 
 # Google Cloud SDK
 if (( $+commands[gcloud] )); then
@@ -157,6 +127,18 @@ fi
 
 # Orbstack
 source ~/.orbstack/shell/init.zsh 2> /dev/null || :
+
+
+##############
+## Aliases
+##############
+alias psgrep="ps wwaux | $GREP"
+alias hgrep="history 1 | $GREP"
+alias bs="brew services"
+alias rm_pyc="find . -name \*\.pyc -delete"
+# My dotfiles git alias for using the bare repository
+alias dotfiles="git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+
 
 if [[ -r $HOME/.zshrc.local ]]; then
     source $HOME/.zshrc.local
