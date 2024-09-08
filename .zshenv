@@ -30,7 +30,7 @@ esac
 export HOMEBREW_NO_ANALYTICS=1
 
 # Variants for 3rd-party apps
-export PREFER_PYTHON_TOOL="pyenv" 
+export PREFER_PYTHON_TOOL="uv" 
 # export PREFER_PYTHON_TOOL="rye" 
 
 

@@ -88,11 +88,13 @@ if (( $+commands[fzf] )); then
 fi
 
 # Python tooling
-if [[ "$PREFER_PYTHON_TOOL" == "rye" ]]; then
-    export PATH="$HOME/.rye/shims:$PATH"
+if [[ "$PREFER_PYTHON_TOOL" == "uv" ]]; then
+    eval "$(uv generate-shell-completion zsh)"
 elif [[ "$PREFER_PYTHON_TOOL" == "pyenv" ]]; then
     export PYENV_ROOT="$HOME/.pyenv"
     eval "$(pyenv init -)"
+else
+    echo "\033[1;33mWARNING:\033[0m Unknown value for PREFER_PYTHON_TOOL. Must either be set to 'uv' or 'pyenv'."
 fi
 
 
