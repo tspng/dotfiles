@@ -15,7 +15,6 @@
 # Due to `path_helper` being called in `/etc/zprofile`,
 # PATH needs to be set up here.
 typeset -U path PATH
-path=(~/bin ~/.local/bin ~/.cargo/bin $path)
 
 # Homebrew for Apple Silicon
 if [[ -x /opt/homebrew/bin/brew ]]; then
@@ -25,6 +24,9 @@ fi
 if [[ -x /usr/local/bin/brew ]]; then
     eval "$(/usr/local/bin/brew shellenv)"
 fi
+
+# Local bin path's take precedence over Homebrew
+path=(~/bin ~/.local/bin ~/.cargo/bin $path)
 
 ##############
 ## Theme
