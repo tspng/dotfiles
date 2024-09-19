@@ -1,7 +1,7 @@
 " GENERAL SETTINGS (see http://www.jukie.net/~bart/conf/vimrc)
 " ================
 
-set nocompatible    " get rid of vi compatibility mode 
+set nocompatible    " get rid of vi compatibility mode
 set visualbell      " Turn off beep
 set history=1000    " set the command history
 set mouse=a         " always allow mouse usage
@@ -57,7 +57,7 @@ function! GetIndentation()
         call TabToggle()
     endif
     if (l:tablines < l:spacelines) && &expandtab == 0
-        " more lines starting with spaces 
+        " more lines starting with spaces
         call TabToggle()
     endif
 endfunction
@@ -77,7 +77,7 @@ autocmd FileType make set noexpandtab shiftwidth=4 softtabstop=4
 
 " don't put python at the start of the line. MFSFAFA:...
 autocmd BufRead *.py set smartindent
-autocmd BufRead *.py inoremap # X<c-h># 
+autocmd BufRead *.py inoremap # X<c-h>#
 
 " COLOR & VIDEO SETTINGS
 " ======================
@@ -98,26 +98,29 @@ if has("gui_running")
         set guifont=-adobe-courier-medium-r-normal-*-12-*-*-*-*-*-*-*
     else
         set guifont=InputMonoNarrow-Regular:h14
-    endif 
+    endif
 endif
 
 " KEY MAPPINGS
 " ============
-set macmeta
+" NOTE: cannot use option as meta key or de-CH keyboard layout will not work properly
+" set macmeta
+set nomacmeta
 
 " move current line up/down with Opt-Up / Opt-Down
+" NOTE: Opt-Up and Opt-Down will not work in gvim on Mac OS X because of nomacmeta setting
 nnoremap <M-Down> :m .+1<CR>==
 nnoremap <M-Up> :m .-2<CR>==
 inoremap <M-Down> <Esc>:m .+1<CR>==gi
 inoremap <M-Up> <Esc>:m .-2<CR>==gi
 
-" move current line up/down with Ctrl-k / Ctrl-j 
+" move current line up/down with Ctrl-k / Ctrl-j
 nnoremap <C-j> :m .+1<CR>==
 nnoremap <C-k> :m .-2<CR>==
 inoremap <C-j> <Esc>:m .+1<CR>==gi
 inoremap <C-k> <Esc>:m .-2<CR>==gi
 
-" 3RD PARTY 
+" 3RD PARTY
 " =========
 
 " fzf
@@ -128,8 +131,8 @@ set rtp+=/opt/homebrew/opt/fzf
 " ======================
 
 " always make backup files when saving
-"set backup 
-"set backupdir=$HOME/.vim/backup 
+"set backup
+"set backupdir=$HOME/.vim/backup
 
 " more comfortable way to rewrap the current paragraph
 "map q gq}
