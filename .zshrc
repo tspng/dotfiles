@@ -27,6 +27,10 @@ fi
 
 # Local bin path's take precedence over Homebrew
 path=(~/bin ~/.local/bin ~/.cargo/bin $path)
+# Only add go bin dir if it exists
+if [[ -d "$GOPATH" ]]; then
+    path=($GOPATH/bin $path)
+fi
 
 ##############
 ## Theme
