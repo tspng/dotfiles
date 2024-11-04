@@ -5,8 +5,8 @@ import = [
 
 [window]
 dimensions = { columns = 124, lines = 43 }
-decorations = "transparent"
-padding = { x = 5, y = 25 }
+decorations = "full"
+padding = { x = 5, y = 5 }
 dynamic_padding = true
 opacity = 0.95
 
