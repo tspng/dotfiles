@@ -88,6 +88,11 @@ bindkey '^[[1;3C' forward-word                # alt/option-right arrow
 ## 3rd-party Apps
 ##############
 
+# Google Cloud SDK
+if (( $+commands[gcloud] )); then
+    source ${HOMEBREW_PREFIX}/share/google-cloud-sdk/completion.zsh.inc
+fi
+
 # Fzf Ctrl-R replacement
 if (( $+commands[fzf] )); then
     eval "$(fzf --zsh)"
@@ -103,11 +108,6 @@ else
     echo "\033[1;33mWARNING:\033[0m Unknown value for PREFER_PYTHON_TOOL. Must either be set to 'uv' or 'pyenv'."
 fi
 
-
-# Google Cloud SDK
-if (( $+commands[gcloud] )); then
-    source ${HOMEBREW_PREFIX}/share/google-cloud-sdk/completion.zsh.inc
-fi
 
 # Direnv, load and unload environment variables based on current directory
 if (( $+commands[direnv] )); then
@@ -147,7 +147,7 @@ alias rm_pyc="find . -name \*\.pyc -delete"
 # My dotfiles git alias for using the bare repository
 alias dotfiles="git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 
-
 if [[ -r $HOME/.zshrc.local ]]; then
     source $HOME/.zshrc.local
 fi
+
