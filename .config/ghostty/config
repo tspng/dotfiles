@@ -1,12 +1,14 @@
 theme = iTerm2 Pastel Dark Background
-background-opacity = 0.85
+background-opacity = 0.8
 background-blur-radius = 18
 
 # Thicker font on macOS (better for non-Retina displays)
 font-thicken = true
 
 # no native titlebar and window decorations on macOS
-macos-titlebar-style = hidden
+# macos-titlebar-style values: hidden, transparent, native, tabs
+macos-titlebar-style = tabs
+
 window-padding-x = 8
 window-padding-y = 8
 
