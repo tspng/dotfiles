@@ -9,6 +9,9 @@
 # - https://0xmachos.com/2021-05-13-zsh-path-macos/
 # - https://gist.github.com/Linerre/f11ad4a6a934dcf01ee8415c9457e7b2
 
+# Profile
+#zmodload zsh/zprof
+
 ##############
 ## Path
 ##############
@@ -44,13 +47,16 @@ prompt tspng
 ## Completion
 ##############
 fpath=($HOMEBREW_PREFIX/share/zsh/site-functions $fpath)
-autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
 zstyle ':completion:*' rehash true
 zstyle ':completion:*' special-dirs true
-
-# setopt extendedglob  # enable extended globbing
-
+autoload -Uz compinit
+# Only check the cached completion file once per day
+if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+	compinit
+else
+	compinit -C
+fi
 
 ##############
 ## History
@@ -151,3 +157,5 @@ if [[ -r $HOME/.zshrc.local ]]; then
     source $HOME/.zshrc.local
 fi
 
+# Profile
+#zprof
