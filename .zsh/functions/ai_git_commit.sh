@@ -7,22 +7,25 @@
 # 1) gets the current staged changed diff
 # 2) sends them to an LLM to write the git commit message
 # 3) allows you to easily accept, edit, re-write, regenerate, cancel
-# But - just read and edit the code however you like
-# the `llm` CLI util is awesome, can get it here: https://llm.datasette.io/en/stable/
+# Uses `llm` CLI tool to communicate with llm APIs (https://llm.datasette.io/)
 # 
 # To use this script, add the following line to your ~/.zshrc or ~/.bashrc:
-# source /path/to/ai_git_commit.sh
+# source /path/to/THIS_FILE.sh
 # -----------------------------------------------------------------------------
 
 gcm() {
     local use_conventional=true
+    local verbose=false
     local llm_model=""
 
     # Parse command line options
-    while getopts ":cm:" opt; do
+    while getopts ":cvm:" opt; do
         case ${opt} in
             c )
                 use_conventional=false
+                ;;
+            v )
+                verbose=true
                 ;;
             m )
                 llm_model=$OPTARG
@@ -30,12 +33,25 @@ gcm() {
             \? )
                 echo "Usage: gcm [-c] [-m model]"
                 echo "  -c    Disable conventional commit format"
+                echo "  -v    Verbose mode"
                 echo "  -m    Specify the LLM model to use"
                 return 1
                 ;;
         esac
     done
     shift $((OPTIND -1))
+
+    # Check for llm CLI tool availability
+    if ! command -v llm &> /dev/null; then
+        echo "Error: llm command not found. Please install it first (https://llm.datasette.io/)."
+        return 1
+    fi
+
+    # Check if we are in a git repository
+    if ! git rev-parse --is-inside-work-tree &> /dev/null; then
+        echo "Error: Not in a git repository"
+        return 1
+    fi
 
     # Check if there are any staged changes
     if [ -z "$(git diff --cached --name-only)" ]; then
@@ -47,9 +63,9 @@ gcm() {
     generate_commit_message() {
         local format_instruction=""
         if $use_conventional; then
-            format_instruction="1) Use conventional commit format, but without scopes"
+            format_instruction="You must use the conventional commit format, but without scopes"
         else
-            format_instruction="1) Use a clear and concise format"
+            format_instruction="Use a clear and concise format, but do NOT use conventional commit format"
         fi
 
         local llm_command="llm"
@@ -57,7 +73,9 @@ gcm() {
             llm_command="llm -m $llm_model"
         fi
 
-        git diff --cached | $llm_command "
+        # Get the last 5 commit messages for context
+        local message_examples=$(git log --oneline -n 5 --no-decorate --no-merges --pretty=format:"%s")
+        local prompt="
 Below is a diff of all staged changes, coming from the command:
 
 \`\`\`
@@ -66,10 +84,25 @@ git diff --cached
 
 Create a concise and consistent git commit message for these changes, 
 adhering to the following guidelines: 
-1) $format_instruction 
-2) Limit the subject line to about 75 characters 
-3) Do not end the subject line with a period 
-4) Only provide a single line subject message"
+- $format_instruction 
+- Limit the subject line to about 75 characters 
+- Do not end the subject line with a period 
+- Only provide a single line subject message
+- Keep consistent tense and style
+
+Here are the last 5 commit messages for context:
+<COMMIT_MESSAGES>
+$message_examples
+</COMMIT_MESSAGES>
+"
+
+        if $verbose; then
+            echo -e "\n===== PROMPT TO LLM =====\n"
+            echo "$prompt"
+            echo -e "\n=========================\n"
+        fi
+
+        git diff --cached | $llm_command "$prompt"
     }
 
     # Function to read user input compatibly with both Bash and Zsh
@@ -85,7 +118,6 @@ adhering to the following guidelines:
     # Main script
     echo "Generating AI-powered commit message..."
     commit_message=$(generate_commit_message)
-
 
     while true; do
         echo -e "\nProposed commit message:"
@@ -165,3 +197,4 @@ adhering to the following guidelines:
         esac
     done
 }
+
