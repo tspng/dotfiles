@@ -152,6 +152,7 @@ alias bs="brew services"
 alias rm_pyc="find . -name \*\.pyc -delete"
 # My dotfiles git alias for using the bare repository
 alias dotfiles="git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+alias d=dotfiles
 
 if [[ -r $HOME/.zshrc.local ]]; then
     source $HOME/.zshrc.local
@@ -159,3 +160,4 @@ fi
 
 # Profile
 #zprof
+
