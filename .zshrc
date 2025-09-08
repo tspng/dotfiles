@@ -139,6 +139,11 @@ else
     export LESSCHARSET='utf-8'
 fi
 
+# zoxide (ls replacement)
+if (( $+commands[zoxide] )); then
+    eval "$(zoxide init zsh)"
+fi
+
 # Orbstack
 source ~/.orbstack/shell/init.zsh 2> /dev/null || :
 
