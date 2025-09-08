@@ -144,6 +144,9 @@ if (( $+commands[zoxide] )); then
     eval "$(zoxide init zsh)"
 fi
 
+# kiro editor
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
+
 # Orbstack
 source ~/.orbstack/shell/init.zsh 2> /dev/null || :
 
