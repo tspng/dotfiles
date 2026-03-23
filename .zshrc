@@ -47,6 +47,7 @@ prompt tspng
 ## Completion
 ##############
 fpath=($HOMEBREW_PREFIX/share/zsh/site-functions $fpath)
+fpath=($HOME/.zsh/completions $fpath)
 zstyle ':completion:*' menu select
 zstyle ':completion:*' rehash true
 zstyle ':completion:*' special-dirs true
@@ -76,18 +77,15 @@ setopt inc_append_history     # add commands to HISTFILE in order of execution
 ##############
 ## Key Bindings
 ##############
-bindkey "^a"      beginning-of-line           # ctrl-a
-bindkey "^e"      end-of-line                 # ctrl-e
-#bindkey "[b"      history-search-forward      # down arrow
-#bindkey "[a"      history-search-backward     # up arrow
-bindkey "^d"      delete-char                 # ctrl-d
-# iterm2
-bindkey '^[b'     backward-word               # alt/option-left arrow
-bindkey '^[f'     forward-word                # alt/option-right arrow
-# alacritty
+bindkey -e        # Default to standard emacs bindings
+
+bindkey '^a'      beginning-of-line           # ctrl-a
+bindkey '^e'      end-of-line                 # ctrl-e
+bindkey '^d'      delete-char                 # ctrl-d
+bindkey '^[[3~'   delete-char                 # Delete key
+bindkey '^?'      backward-delete-char        # Backspace key
 bindkey '^[[1;3D' backward-word               # alt/option-left arrow
 bindkey '^[[1;3C' forward-word                # alt/option-right arrow
-#bindkey -e        # Default to standard emacs bindings
 
 
 ##############
