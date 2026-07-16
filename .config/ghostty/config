@@ -15,3 +15,6 @@ mouse-scroll-multiplier = 3
 
 # Allow multiline prompts 
 keybind = shift+enter=text:\x1b\r
+
+# Fix terminfo issues in ssh sessions
+shell-integration-features = ssh-env,ssh-terminfo
