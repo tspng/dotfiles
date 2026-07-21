@@ -1,0 +1,2 @@
+# override with `pnpm add <package> --config.minimumReleaseAge=0`
+minimum-release-age=10080  # minutes

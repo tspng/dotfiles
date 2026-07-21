@@ -1,0 +1,2 @@
+# override with `uv add <package> --exclude-newer "0 days"`
+exclude-newer = "7 days"
