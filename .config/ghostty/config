@@ -13,6 +13,10 @@ window-padding-y = 8
 
 mouse-scroll-multiplier = 3
 
+window-save-state = never
+window-width = 118
+window-height = 45
+
 # Allow multiline prompts 
 keybind = shift+enter=text:\x1b\r
 
