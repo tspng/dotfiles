@@ -28,6 +28,7 @@ esac
 ##############
 
 export HOMEBREW_NO_ANALYTICS=1
+export HOMEBREW_NO_UPGRADE_AUTO_UPDATES_CASKS=1
 
 # Variants for 3rd-party apps
 export PREFER_PYTHON_TOOL="uv" 
