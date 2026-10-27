@@ -29,3 +29,5 @@ window-height = 45
 # Fix terminfo issues in ssh sessions
 shell-integration-features = ssh-env,ssh-terminfo
 
+# Shift+Enter: send CSI-u (ESC[13;2u) instead of a literal newline
+keybind = shift+enter=csi:13;2u

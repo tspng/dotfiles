@@ -87,6 +87,10 @@ bindkey '^?'      backward-delete-char        # Backspace key
 bindkey '^[[1;3D' backward-word               # alt/option-left arrow
 bindkey '^[[1;3C' forward-word                # alt/option-right arrow
 
+# Shift+Enter inserts a newline (CSI-u sequence from Ghostty, relayed by tmux)
+insert-newline() { LBUFFER+=$'\n' }
+zle -N insert-newline
+bindkey '\e[13;2u' insert-newline
 
 ##############
 ## 3rd-party Apps

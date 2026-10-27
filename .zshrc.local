@@ -1,0 +1,21 @@
+# export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
+# export PG_CONFIG="/opt/homebrew/opt/postgresql@16/bin/pg_config"
+
+#alias llmt='llm -t term'
+alias llmt='llm -s "Your responses are read in a terminal of 100x43 character size. Keep your answers short and do not write lines longer than 100 characters wide."'
+alias cm='~/.local/bin/llm -t commit <<< echo '
+alias update-uv-tools='(cd ~/ && uv self update && uv tool upgrade --all; gcloud components update --quiet)'
+alias bupdate='brew update && brew upgrade --yes && brew cleanup && brew autoremove && brew doctor'
+alias update-agents='npm -g install @earendil-works/pi-coding-agent@latest @openai/codex@latest --min-release-age=0'
+alias update-all='bupdate; update-uv-tools; update-agents'
+
+# Modern tools
+# This seems to mess with coding agents when they try to read files
+alias cat='bat'
+# alias ls='eza'
+
+# AI-powered Git Commit Function
+source ~/.zsh/functions/ai_git_commit.sh
+
+# Bitwarden CLI functions
+source ~/.zsh/functions/bitwarden.sh
