@@ -101,6 +101,11 @@ if (( $+commands[gcloud] )); then
     source ${HOMEBREW_PREFIX}/share/google-cloud-sdk/completion.zsh.inc
 fi
 
+# Rex completion
+if (( $+commands[rex] )); then
+    source <(rex completion zsh)
+fi
+
 # Fzf Ctrl-R replacement
 if (( $+commands[fzf] )); then
     eval "$(fzf --zsh)"
