@@ -25,7 +25,7 @@ dotfiles checkout
 Configure the git repository to not show untracked files (there would be many in `$HOME`):
 
 ```sh
-config config --local status.showUntrackedFiles no
+dotfiles config --local status.showUntrackedFiles no
 ```
 
 You're done, from now on you can now type `dotfiles` commands to add and update your dotfiles as you would with `git`.
