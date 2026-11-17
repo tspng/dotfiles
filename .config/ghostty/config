@@ -1,5 +1,5 @@
 # Use prerelease build where macos tabs are fixed on Golden Gate
-auto-update-channel = tip
+auto-update-channel = stable
 
 theme = iTerm2 Pastel Dark Background
 background-opacity = 0.85
